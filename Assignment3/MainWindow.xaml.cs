@@ -113,6 +113,8 @@ namespace Assignment3
         private ListBox cinemaListBox;
         private StackPanel screeningPanel;
         private StackPanel ticketPanel;
+        private List<Cinema> cinemaList;
+        private Task<List<Cinema>> cinemas100km;
 
         // An SQL connection that we will keep open for the entire program.
         //private SqlConnection connection;
@@ -127,8 +129,16 @@ namespace Assignment3
         }
 
         private async Task<List<Cinema>> GeolocationAsync(Task<Coordinate> coordTask)
-            //GetCinemasWithin100km_Async***
-            //GetCinemas100km_Async
+        //GetCinemasWithin100km_Async***
+        //GetCinemas100km_Async
+
+        //Det kanske går att göra så att
+        //"GeolocationAsync"
+        //Använder
+        //"Coordinate coor"
+        //istället
+        //Det går nog bra i vilket fall som helst, men
+        //om man vill så kan man nog det.
         {
             using var database = new AppDbContext();
             List<Cinema> cinemaList = new List<Cinema>();
@@ -173,11 +183,14 @@ namespace Assignment3
             };
         }
 
-        private void Start()
+        //private void Start()
+        //***
+        private async Task Start()
         {
             //connection = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Database=DataAccessGUIAssignment;Integrated Security=True;");
             //connection.Open();
             //***
+            cinemas100km = GeolocationAsync(LocationTaskAsync());
 
             // Window options
             Title = "Cinemania";
@@ -353,7 +366,8 @@ namespace Assignment3
 
             if (cityComboBox.SelectedItem.ToString() == "Cinemas within 100 km")
             {
-                var cinemaList = await GeolocationAsync(LocationTaskAsync());
+                //var cinemaList = await GeolocationAsync(LocationTaskAsync());***
+                var cinemaList = await cinemas100km;
                 List<string> cinemas = new List<string>();
                 foreach (var cinema in cinemaList)
                 {
