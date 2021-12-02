@@ -202,6 +202,7 @@ namespace Assignment3
 
         // Create the cinema part of the GUI: the left column.
         private UIElement CreateCinemaGUI()
+            //CreateCinemaGUI_Async***
         {
             var grid = new Grid
             {
@@ -346,6 +347,7 @@ namespace Assignment3
 
         // Get a list of all cinemas in the currently selected city.
         private async Task<IEnumerable<string>> GetCinemasInSelectedCity()
+            //GetCinemasInSelectedCity_Async***
         {
             using var database = new AppDbContext();
 
@@ -374,6 +376,7 @@ namespace Assignment3
 
         // Update the GUI with the cinemas in the currently selected city.
         private async void UpdateCinemaList()
+            //UpdateCinemaList_Async***
         {
             cinemaListBox.Items.Clear();
             foreach (string cinema in await GetCinemasInSelectedCity())
